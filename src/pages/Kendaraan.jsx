@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import StatusBadge from '../components/StatusBadge'
 
 export default function Kendaraan() {
   const [activeStatus, setActiveStatus] = useState('Semua')
@@ -167,7 +168,7 @@ export default function Kendaraan() {
         searchQuery={searchQuery}
         setSearchQuery={handleSearchChange}
         searchPlaceholder="Cari kendaraan, nomor polisi..."
-        greeting="Selamat Datang, Nino"
+        greeting="Data Kendaraan"
         subtitle="Senin, 24 Oktober 2024 • Shift Pagi Ops"
       />
 
@@ -265,11 +266,10 @@ export default function Kendaraan() {
               type="button"
               aria-pressed={activeStatus === 'Semua'}
               onClick={() => handleStatusChange('Semua')}
-              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${
-                activeStatus === 'Semua'
+              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${activeStatus === 'Semua'
                   ? 'bg-[#0F766E] text-white shadow-xs'
                   : 'bg-[#E9F6FD] text-[#47607E] hover:bg-[#D4E6F2]'
-              }`}
+                }`}
             >
               Semua (12)
             </button>
@@ -277,11 +277,10 @@ export default function Kendaraan() {
               type="button"
               aria-pressed={activeStatus === 'Tersedia'}
               onClick={() => handleStatusChange('Tersedia')}
-              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${
-                activeStatus === 'Tersedia'
+              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${activeStatus === 'Tersedia'
                   ? 'bg-[#0F766E] text-white shadow-xs'
                   : 'bg-[#E9F6FD] text-[#47607E] hover:bg-[#D4E6F2]'
-              }`}
+                }`}
             >
               Tersedia (7)
             </button>
@@ -289,11 +288,10 @@ export default function Kendaraan() {
               type="button"
               aria-pressed={activeStatus === 'Disewa'}
               onClick={() => handleStatusChange('Disewa')}
-              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${
-                activeStatus === 'Disewa'
+              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${activeStatus === 'Disewa'
                   ? 'bg-[#0F766E] text-white shadow-xs'
                   : 'bg-[#E9F6FD] text-[#47607E] hover:bg-[#D4E6F2]'
-              }`}
+                }`}
             >
               Disewa (3)
             </button>
@@ -301,11 +299,10 @@ export default function Kendaraan() {
               type="button"
               aria-pressed={activeStatus === 'Maintenance'}
               onClick={() => handleStatusChange('Maintenance')}
-              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${
-                activeStatus === 'Maintenance'
+              className={`cursor-pointer rounded-full px-3.5 py-1.5 font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${activeStatus === 'Maintenance'
                   ? 'bg-[#0F766E] text-white shadow-xs'
                   : 'bg-[#E9F6FD] text-[#47607E] hover:bg-[#D4E6F2]'
-              }`}
+                }`}
             >
               Maintenance (2)
             </button>
@@ -332,11 +329,12 @@ export default function Kendaraan() {
                       alt={vehicle.name}
                       className="h-full w-full object-cover"
                     />
-                    <div
-                      className={`absolute right-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 font-plusJakartaSans text-[11px] font-semibold tracking-wide shadow-xs ${vehicle.statusBadgeBg} ${vehicle.statusBadgeText}`}
-                    >
-                      <span className={`h-1.5 w-1.5 rounded-full ${vehicle.statusDotBg}`} />
-                      <span>{vehicle.status === 'Maintenance' ? 'Perlu Servis' : vehicle.status === 'Disewa' ? 'Sedang Disewa' : vehicle.status}</span>
+                    <div className="absolute right-3 top-3">
+                      <StatusBadge
+                        status={vehicle.status === 'Tersedia' ? 'success' : vehicle.status === 'Disewa' ? 'info' : 'warning'}
+                        label={vehicle.status === 'Maintenance' ? 'Perlu Servis' : vehicle.status === 'Disewa' ? 'Sedang Disewa' : vehicle.status}
+                        size="sm"
+                      />
                     </div>
                     <span className="absolute bottom-3 left-3 rounded bg-[#263238]/85 px-2.5 py-0.5 font-liberationMono text-[11px] font-medium tracking-wider text-white shadow-xs">
                       {vehicle.plate}
@@ -487,11 +485,10 @@ export default function Kendaraan() {
               aria-current={activePage === 1 ? 'page' : undefined}
               aria-label="Halaman 1"
               onClick={() => setActivePage(1)}
-              className={`flex h-8 w-8 items-center justify-center rounded-lg font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${
-                activePage === 1
+              className={`flex h-8 w-8 items-center justify-center rounded-lg font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${activePage === 1
                   ? 'bg-[#0F766E] text-white'
                   : 'bg-[#E9F6FD] text-[#47607E] hover:bg-[#D4E6F2]'
-              }`}
+                }`}
             >
               1
             </button>
@@ -501,11 +498,10 @@ export default function Kendaraan() {
               aria-current={activePage === 2 ? 'page' : undefined}
               aria-label="Halaman 2"
               onClick={() => setActivePage(2)}
-              className={`flex h-8 w-8 items-center justify-center rounded-lg font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${
-                activePage === 2
+              className={`flex h-8 w-8 items-center justify-center rounded-lg font-plusJakartaSans text-xs font-semibold transition-colors sm:text-[13px] ${activePage === 2
                   ? 'bg-[#0F766E] text-white'
                   : 'bg-[#E9F6FD] text-[#47607E] hover:bg-[#D4E6F2]'
-              }`}
+                }`}
             >
               2
             </button>

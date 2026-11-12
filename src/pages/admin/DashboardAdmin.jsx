@@ -1,3 +1,5 @@
+import StatusBadge from '../../components/StatusBadge'
+
 const statistics = [
   { label: 'Total kendaraan', value: '12', note: 'Contoh unit dalam inventaris', color: 'bg-[#E3F0F8] text-[#47607E]' },
   { label: 'Total pemesanan', value: '28', note: 'Contoh pada periode berjalan', color: 'bg-[#DDEAF2] text-[#0F766E]' },
@@ -139,7 +141,13 @@ export default function DashboardAdmin() {
                     </td>
                     <td className="px-5 py-4">{booking.vehicle}</td>
                     <td className="px-5 py-4">{booking.date}</td>
-                    <td className="px-5 py-4"><span className={`whitespace-nowrap rounded-full px-2.5 py-1 font-semibold ${booking.tone}`}>{booking.status}</span></td>
+                    <td className="px-5 py-4">
+                      <StatusBadge
+                        status={booking.status === 'Dikonfirmasi' ? 'success' : booking.status === 'Menunggu' ? 'warning' : 'danger'}
+                        label={booking.status}
+                        size="sm"
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -162,7 +170,11 @@ export default function DashboardAdmin() {
                   <p className="truncate font-plusJakartaSans text-sm font-semibold text-[#17324D]">{vehicle.name}</p>
                   <p className="mt-1 font-plusJakartaSans text-xs text-[#6E7977]">{vehicle.plate}</p>
                 </div>
-                <span className={`shrink-0 font-plusJakartaSans text-xs font-bold ${vehicle.tone}`}>{vehicle.status}</span>
+                <StatusBadge
+                  status={vehicle.status === 'Tersedia' ? 'success' : vehicle.status === 'Disewa' ? 'info' : 'warning'}
+                  label={vehicle.status}
+                  size="sm"
+                />
               </li>
             ))}
           </ul>

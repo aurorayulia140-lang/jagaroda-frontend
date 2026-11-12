@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Header from '../components/Header'
+import StatusBadge from '../components/StatusBadge'
 
 export default function Handover() {
   const [activePeriod, setActivePeriod] = useState('today')
@@ -43,7 +44,7 @@ export default function Handover() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         searchPlaceholder="Cari plat nomor, unit, penyewa..."
-        greeting="Selamat Datang, Nino"
+        greeting="Jadwal Handover"
         subtitle="Senin, 24 Oktober 2024 • Shift Pagi Ops"
       />
 
@@ -79,11 +80,10 @@ export default function Handover() {
                 data-interaction-handled="true"
                 aria-pressed={activePeriod === 'today'}
                 onClick={() => setActivePeriod('today')}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 font-plusJakartaSans text-xs font-semibold transition-all sm:text-[13px] ${
-                  activePeriod === 'today'
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 font-plusJakartaSans text-xs font-semibold transition-all sm:text-[13px] ${activePeriod === 'today'
                     ? 'bg-[#0F766E] text-white shadow-xs'
                     : 'text-[#47607E] hover:text-[#0F766E]'
-                }`}
+                  }`}
               >
                 {activePeriod === 'today' && (
                   <span className="h-1.5 w-1.5 rounded-full bg-[#9CF2E8]" />
@@ -95,11 +95,10 @@ export default function Handover() {
                 data-interaction-handled="true"
                 aria-pressed={activePeriod === 'tomorrow'}
                 onClick={() => setActivePeriod('tomorrow')}
-                className={`rounded-md px-3 py-1.5 font-plusJakartaSans text-xs font-semibold transition-all sm:text-[13px] ${
-                  activePeriod === 'tomorrow'
+                className={`rounded-md px-3 py-1.5 font-plusJakartaSans text-xs font-semibold transition-all sm:text-[13px] ${activePeriod === 'tomorrow'
                     ? 'bg-[#0F766E] text-white shadow-xs'
                     : 'text-[#47607E] hover:text-[#0F766E]'
-                }`}
+                  }`}
               >
                 Besok
               </button>
@@ -108,11 +107,10 @@ export default function Handover() {
                 data-interaction-handled="true"
                 aria-pressed={activePeriod === 'history'}
                 onClick={() => setActivePeriod('history')}
-                className={`rounded-md px-3 py-1.5 font-plusJakartaSans text-xs font-semibold transition-all sm:text-[13px] ${
-                  activePeriod === 'history'
+                className={`rounded-md px-3 py-1.5 font-plusJakartaSans text-xs font-semibold transition-all sm:text-[13px] ${activePeriod === 'history'
                     ? 'bg-[#0F766E] text-white shadow-xs'
                     : 'text-[#47607E] hover:text-[#0F766E]'
-                }`}
+                  }`}
               >
                 Riwayat 7 Hari
               </button>
@@ -330,10 +328,7 @@ export default function Handover() {
                             </div>
                           </div>
                           {/* 4. Status Badge */}
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FDE68A] bg-[#FEF3C7] px-3 py-1 font-plusJakartaSans text-xs font-semibold text-[#B45309]">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#B45309]" />
-                            Akan Segera Berlangsung
-                          </span>
+                          <StatusBadge status="warning" label="Akan Segera Berlangsung" size="sm" />
                         </div>
 
                         {/* 3. Penyewa & Nomor Telepon */}
@@ -444,12 +439,7 @@ export default function Handover() {
                             </div>
                           </div>
                           {/* 4. Status Badge */}
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#BBF7D0] bg-[#DCFCE7] px-3 py-1 font-plusJakartaSans text-xs font-semibold text-[#15803D]">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            Selesai Diambil (08:05 WIB)
-                          </span>
+                          <StatusBadge status="success" label="Selesai Diambil (08:05 WIB)" size="sm" />
                         </div>
 
                         {/* 3. Penyewa & Nomor Telepon */}
@@ -536,10 +526,11 @@ export default function Handover() {
                             </div>
                           </div>
                           {/* 4. Status Badge */}
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#BAE6FD] bg-[#E0F2FE] px-3 py-1 font-plusJakartaSans text-xs font-semibold text-[#0369A1]">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#0369A1]" />
-                            {pickupCompleted ? 'Pengambilan Dikonfirmasi' : 'Menunggu Pengambilan'}
-                          </span>
+                          <StatusBadge
+                            status={pickupCompleted ? 'success' : 'info'}
+                            label={pickupCompleted ? 'Pengambilan Dikonfirmasi' : 'Menunggu Pengambilan'}
+                            size="sm"
+                          />
                         </div>
 
                         {/* 3. Penyewa & Nomor Telepon */}
@@ -668,14 +659,7 @@ export default function Handover() {
                             </div>
                           </div>
                           {/* 4. Status Badge: Terlambat */}
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FECACA] bg-[#FEF2F2] px-3 py-1 font-plusJakartaSans text-xs font-bold text-[#DC2626]">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                              <circle cx="12" cy="12" r="10" />
-                              <line x1="12" y1="8" x2="12" y2="12" />
-                              <line x1="12" y1="16" x2="12.01" y2="16" />
-                            </svg>
-                            Terlambat 1j 45m
-                          </span>
+                          <StatusBadge status="danger" label="Terlambat 1j 45m" size="sm" />
                         </div>
 
                         {/* 3. Penyewa & Nomor Telepon */}
@@ -781,10 +765,11 @@ export default function Handover() {
                             </div>
                           </div>
                           {/* 4. Status Badge */}
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#BAE6FD] bg-[#E0F2FE] px-3 py-1 font-plusJakartaSans text-xs font-semibold text-[#0369A1]">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#0369A1]" />
-                            {returnCompleted ? 'Pengembalian Dikonfirmasi' : 'Menunggu Pengembalian'}
-                          </span>
+                          <StatusBadge
+                            status={returnCompleted ? 'success' : 'info'}
+                            label={returnCompleted ? 'Pengembalian Dikonfirmasi' : 'Menunggu Pengembalian'}
+                            size="sm"
+                          />
                         </div>
 
                         {/* 3. Penyewa & Nomor Telepon */}
@@ -872,12 +857,7 @@ export default function Handover() {
                             </div>
                           </div>
                           {/* 4. Status Badge */}
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#BBF7D0] bg-[#DCFCE7] px-3 py-1 font-plusJakartaSans text-xs font-semibold text-[#15803D]">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            Kembali Tepat Waktu
-                          </span>
+                          <StatusBadge status="success" label="Kembali Tepat Waktu" size="sm" />
                         </div>
 
                         {/* 3. Penyewa & Nomor Telepon */}

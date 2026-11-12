@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import StatusBadge from '../components/StatusBadge'
 
 export default function Dashboard() {
   const [activeVehicleStatus, setActiveVehicleStatus] = useState('all')
@@ -395,11 +396,19 @@ export default function Dashboard() {
                           alt={vehicle.name}
                           className="h-full w-full object-cover"
                         />
-                        <span
-                          className={`absolute right-2.5 top-2.5 rounded-full px-2.5 py-1 font-plusJakartaSans text-[11px] font-bold tracking-wide shadow-xs ${vehicle.statusBadgeBg} ${vehicle.statusBadgeText}`}
-                        >
-                          {vehicle.statusLabel}
-                        </span>
+                        <div className="absolute right-2.5 top-2.5 shadow-xs">
+                          <StatusBadge
+                            status={
+                              vehicle.status === 'available'
+                                ? 'success'
+                                : vehicle.status === 'rented'
+                                ? 'info'
+                                : 'warning'
+                            }
+                            label={vehicle.statusLabel}
+                            size="sm"
+                          />
+                        </div>
                         <span className="absolute bottom-2.5 left-2.5 rounded bg-white/90 px-2 py-0.5 font-plusJakartaSans text-[11px] font-semibold tracking-wider text-[#111D23] shadow-xs">
                           {vehicle.plate}
                         </span>
